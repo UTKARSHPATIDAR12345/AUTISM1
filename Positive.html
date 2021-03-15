@@ -1,0 +1,110 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>VIEW DETAILS</title>
+    <a href = "/home.html" class = "previous">&laquo; Back</a>
+    <style type="text/css">
+        *{
+            padding: 5px;
+            margin: 5px;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            margin-left: 35%;
+            text-align: left;
+            background-color: #D3D3D3;
+
+        }
+        td, th {
+            width: auto;
+            height: 2rem;
+            border: 2px solid #ccc;
+            text-align: auto;
+        }
+        th {
+            background: lightblue;
+            border-color: white;
+        }
+        td{
+            background: orange;
+            border-color: white;
+        }
+        .table{
+
+            table-layout: fixed;
+            width: 100%;
+            border-spacing: 1rem;
+            border-collapse: collapse;
+            font-family: sans-serif;
+        }
+    .print button{
+        margin: 30px 0 30px 0;
+        height: 40px;
+        width: 250px;
+        font-size: 20px;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        font-weight: bold;
+        background: #1A237E;
+        border-radius: 3px;
+        border: 1px solid #3949AB;
+        transition: .5s;
+    }
+    .print button:hover{
+        background: #800000;
+    }
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+        transition: .5s;
+    }
+
+a:hover {
+  background-color: #FAFAFA;
+  color: red;
+}
+.previous {
+
+  color: black;
+  outline: none;
+  cursor: pointer;
+  border-radius: 1px;
+  border: 1px solid #3949AB;
+}
+
+    </style>
+
+</head>
+
+<body>-->
+{% extends "bootstrap.html" %}
+{% block title %}POSITIVE STIMULUS{% endblock %}
+{% block content %}
+<center><h1></h1></center>
+<body>
+  <h2>POSITIVE STIMULUS</h2>
+  <video width="70%" height="70%" controls>
+    <source src={{ url_for('static', filename="happy1.mp4") }} type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</body>
+
+{{ form.submit }}
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://github.com/aadarshjain/GEMSCAP"> DUA TECH SOLUTIONS</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+ {% endblock %}
+<!--</body>
+</html>-->
