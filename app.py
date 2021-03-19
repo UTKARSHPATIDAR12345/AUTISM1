@@ -1,5 +1,3 @@
-################################## IMPORT LIBRARIES ##################################
-
 from flask import Flask, render_template, request, redirect, url_for
 from flask import *
 from form import userform, printdata, updateExcel, paidDetails, amountToPay, payToIndividual, indiMonthlyView, indiPayView, adjustform, updatekyc, deleteform, printdeldata, adjustpaymentform
@@ -59,7 +57,6 @@ def login():
 def home():
 	return render_template('home.html')
 
-################################## ROUTE USER PROFILE PAGE ##################################
 
 @app.route('/user_profile.html',methods=['GET','POST'])
 def userprofile():
@@ -98,168 +95,46 @@ def userprofile():
 				cur = con.cursor() 
 				#cur.execute('DROP TABLE gemscap_table')
 				cur.execute('''CREATE TABLE IF NOT EXISTS gemscap_table(   
-				EmployeeID TEXT NOT NULL,
-				FirstName TEXT NOT NULL,
-				MiddleName TEXT NOT NULL,
-				LastName TEXT NOT NULL,
-				FatherName TEXT NOT NULL,
-				MotherName TEXT NOT NULL,
-				DOB TEXT NOT NULL,
-				Gender TEXT NOT NULL,
-				MaritialStatus TEXT NOT NULL,
-				PermanentAddress TEXT NOT NULL,
-				City1 TEXT NOT NULL,
-				Pincode1 INTEGER NOT NULL,
-				Country1 TEXT NOT NULL,
-				LocalAddress TEXT NOT NULL,
-				City2 TEXT NOT NULL,
-				Pincode2 INTEGER NOT NULL,
-				Country2 TEXT NOT NULL,
-				EmailAddress TEXT NOT NULL,
-				ContactNumber1 INTEGER,
-				ContactNumber2 INTEGER,
-				FamilyPersonsName1 TEXT NOT NULL,
-				FamilyPersonsContactNumber1 INTEGER,
-				FamilyPersonsRelationWithEmployee1 TEXT NOT NULL,
-				FamilyPersonsName2 TEXT NOT NULL,
-				FamilyPersonsContactNumber2 TEXT NOT NULL,
-				FamilyPersonsRelationWithEmployee2 TEXT NOT NULL,
-				AadharCard TEXT NOT NULL,
-				PanCard TEXT NOT NULL,
-				EductionalCourseDetail TEXT NOT NULL,
-				PassingYear INTEGER,
-				PassingStatus TEXT NOT NULL,
-				PFNomineeName TEXT NOT NULL,
-				PFNomineeRelation TEXT NOT NULL,
-				PFNomineeDOB TEXT NOT NULL,
-				DateOfJoining TEXT NOT NULL,
-				DateOfResigning TEXT NOT NULL,
-				AccountNumber1 TEXT NOT NULL,
-				IFSCcode1 TEXT NOT NULL,
-				BankName1 TEXT NOT NULL,
-				AccountType1 TEXT NOT NULL,
-				AccountHolderName1 TEXT NOT NULL,
-				AccountNumber2 TEXT NOT NULL,
-				IFSCcode2 TEXT NOT NULL,
-				BankName2 TEXT NOT NULL,
-				AccountType2 TEXT NOT NULL,
-				AccountHolderName2 TEXT NOT NULL,
-				TakionID TEXT NOT NULL PRIMARY KEY,
-				StartingBalance TEXT NOT NULL,
-				PolicyNumber TEXT NOT NULL,
-				CarryForwardBalance TEXT NOT NULL,
-				RateOfDollar TEXT NOT NULL,
-				Qty INT DEFAULT 0,
-				Total FLOAT DEFAULT 0
+				ID1 INTEGER NOT NULL,
+				ID2 INTEGER NOT NULL,
+				ID3 INTEGER NOT NULL,
+				ID4 INTEGER NOT NULL,
+				ID5 INTEGER NOT NULL,
+				ID6 INTEGER NOT NULL,
+				ID7 INTEGER NOT NULL,
+				ID8 INTEGER NOT NULL,
+				ID9 INTEGER NOT NULL,
+				ID10 INTEGER NOT NULL,
+				ID11 INTEGER NOT NULL,
+				ID12 INTEGER NOT NULL,
+				ID13 INTEGER NOT NULL,
+				ID14 INTEGER NOT NULL,
+				ID15 INTEGER NOT NULL,
+				ID16 INTEGER NOT NULL,
+				ID17 INTEGER NOT NULL,
+				
 				) 
 				''') 
-				cur.execute("INSERT INTO gemscap_table (EmployeeID,FirstName,MiddleName,LastName,FatherName,MotherName,DOB,Gender,MaritialStatus,PermanentAddress,City1,Pincode1,Country1,LocalAddress,City2,Pincode2,Country2,EmailAddress,ContactNumber1,ContactNumber2,FamilyPersonsName1,FamilyPersonsContactNumber1,FamilyPersonsRelationWithEmployee1,FamilyPersonsName2,FamilyPersonsContactNumber2,FamilyPersonsRelationWithEmployee2,AadharCard,PanCard,EductionalCourseDetail,PassingYear,PassingStatus,PFNomineeName,PFNomineeRelation,PFNomineeDOB,DateOfJoining,DateOfResigning,AccountNumber1,IFSCcode1,BankName1,AccountType1,AccountHolderName1,AccountNumber2,IFSCcode2,BankName2,AccountType2,AccountHolderName2,TakionID,StartingBalance,PolicyNumber,CarryForwardBalance,RateOfDollar) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (EmployeeID,FirstName,MiddleName,LastName,FatherName,MotherName,DOB,Gender,MaritialStatus,PermanentAddress,City1,Pincode1,Country1,LocalAddress,City2,Pincode2,Country2,EmailAddress,ContactNumber1,ContactNumber2,FamilyPersonsName1,FamilyPersonsContactNumber1,FamilyPersonsRelationWithEmployee1,FamilyPersonsName2,FamilyPersonsContactNumber2,FamilyPersonsRelationWithEmployee2,AadharCard,PanCard,EductionalCourseDetail,PassingYear,PassingStatus,PFNomineeName,PFNomineeRelation,PFNomineeDOB,DateOfJoining,DateOfResigning,AccountNumber1,IFSCcode1,BankName1,AccountType1,AccountHolderName1,AccountNumber2,IFSCcode2,BankName2,AccountType2,AccountHolderName2,TakionID,StartingBalance,PolicyNumber,CarryForwardBalance,RateOfDollar))
+				cur.execute("INSERT INTO gemscap_table (ID1,ID2,ID3,ID4,ID5,ID6,ID7,ID8,ID9,ID10,ID11,ID12,ID13,ID14,ID15,ID16,ID17) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (ID1,ID2,ID3,ID4,ID5,ID6,ID7,ID8,ID9,ID10,ID11,ID12,ID13,ID14,ID15,ID16,ID17))
 				con.commit()
-				adduserto4tables(TakionID)                          ## 22 SEP
-				msg = "Employee successfully Added"
-				con.commit()  
-				msg = "Employee successfully Added"  
+
 		except:  
 			con.rollback()  
 			msg = "We can not add the employee to the list"  
 		finally:
 			return render_template('home.html', msg = msg)
 			con.close()
-		return redirect(url_for('saveDetails'))
-		##render or code to save in dbms    
+
 	return render_template('user_profile.html',form = form)
 
 ################################## ROUTE UPDATE PROFILE PAGE ##################################
 	
-@app.route('/update_kyc.html',methods=['GET','POST'])
-def updateKYC():
-	form = updatekyc(request.form)
-	
-	try:
-		print("form.errors is ", form.errors )
-		if form.is_submitted():
-			print("++++submitted+++")
-		if not form.validate():
-			print("++++invalid++++")
-		print("form.errors2 is ", form.errors )
-		if request.method == 'POST' and form.validate_on_submit():		#request.method == 'POST' and form.is_submitted()
-			result = request.form
-			print(result)
-			print(len(result))
-			if(len(result) != 0):
-				MaritialStatus = result["MaritialStatus"]
-				LocalAddress = result["LocalAddress"]
-				City2 = result["City2"]
-				Pincode2 = result["Pincode2"]
-				Country2 = result["Country2"]
-				ContactNumber2 = result["ContactNumber2"]
-				PFNomineeName = result["PFNomineeName"]
-				PFNomineeRelation = result["PFNomineeRelation"]
-				PFNomineeDOB = result["PFNomineeDOB"]
-				DateOfResigning = result["DateOfResigning"]
-				AccountNumber2 = result["AccountNumber2"]
-				IFSCcode2 = result["IFSCcode2"]
-				BankName2 = result["BankName2"]
-				AccountType2 = result["AccountType2"]
-				AccountHolderName2 = result["AccountHolderName2"]
-				TakionID = result['TakionID']
-				PolicyNumber = result['PolicyNumber']
-				print("++++++++",MaritialStatus,City2,Pincode2,Country2)
-				con = sqlite3.connect("GEMSCAP_TABLE.db")   
-				cur = con.cursor()
-				cur.execute('''UPDATE gemscap_table SET "MaritialStatus"="{}", ContactNumber2="{}", LocalAddress="{}", City2="{}",
-							Pincode2="{}", Country2="{}", PFNomineeName="{}", PFNomineeRelation="{}", PFNomineeDOB="{}",  DateOfResigning="{}",
-							AccountNumber2="{}",IFSCcode2="{}", BankName2="{}", AccountType2="{}", AccountHolderName2="{}", PolicyNumber="{}" 
-							WHERE TakionID="{}"'''.format(MaritialStatus,ContactNumber2,LocalAddress,City2 ,Pincode2,Country2,PFNomineeName,PFNomineeRelation,PFNomineeDOB,DateOfResigning,AccountNumber2,IFSCcode2,BankName2,AccountType2,AccountHolderName2,PolicyNumber,TakionID)) 
-				
-				con.commit()
-				con.close()
-				return redirect(url_for('home'))
-			if request.method == "GET":
-				return render_template('update_kyc.html',form = form)
-			
-	except OSError as e:
-		print(e)
-	except ValueError as e:
-		print(e)
-	except NameError as e:
-		print(e)
-	except sqlite3.OperationalError as e:
-		print(e)
-	
-
-	return render_template('update_kyc.html',form = form)
-
-################################## ROUTE VIEW PAGE ##################################
-
-@app.route("/view")  
-def view():  
-	con = sqlite3.connect("GEMSCAP_TABLE.db")  
-	con.row_factory = sqlite3.Row  
-	cur = con.cursor()  
-	cur.execute("select * from gemscap_table")  
-	rows = cur.fetchall()  
-	return render_template("view.html",rows = rows)
-
-################################## ROUTE VIEW DEL PAGE ##################################
-
-@app.route("/viewdel")  
-def viewdel():  
-	con = sqlite3.connect("GEMSCAP_TABLE.db")  
-	con.row_factory = sqlite3.Row  
-	cur = con.cursor()  
-	cur.execute("select * from deluser")  
-	rows = cur.fetchall()  
-	return render_template("viewdel.html",rows = rows)
-
-################################## ROUTE EMPLOYEE DETAILS PAGE ##################################
+############## ROUTE EMPLOYEE DETAILS PAGE ##################################
 
 @app.route("/Positive.html",methods = ["POST","GET"])
-def tryprint():
-    form=submit()
-    if form.is_submitted():
-		return redirect(url_for('Negativestimulus'))
-	return render_template("Positive.html",form=form)
+def positivestimulus():
+
+	return render_template("Positive.html")
 
 ################################## ROUTE DELETED EMPLOYEE PAGE ##################################
 
